@@ -1,0 +1,56 @@
+{
+    "header": {
+      "title": "Solmio Ailo®",
+      "description": "Ailo® is a completely new type of assistant for restaurants! You can talk to me about anything, just like to a person 😊"
+    },
+    "instructions": {
+      "support": {
+        "title": "Solmio Support Service:",
+        "description": "Quickly get support for any issue. I can tell you how to act if you want to create new products or if there are problems with the network."
+      },
+      "productInfo": {
+        "title": "Product Information",
+        "description": "I always know the latest information about products and raw materials."
+      },
+      "cashReports": {
+        "title": "Cash Reports:",
+        "description": "I can fetch all cash reports for you and compare them as needed."
+      },
+      "inventory": {
+        "title": "Inventory:",
+        "description": "Real-time inventory balance, always and anywhere."
+      },
+      "imageAnalysis": {
+        "title": "Image Analysis:",
+        "description": "You can upload an image of, for example, your restaurant hall, salad bar, or stock, and I can tell if it meets the guidelines."
+      },
+      "marketing": {
+        "title": "Marketing and Sales Promotion:",
+        "description": "You can ask me for tips to boost sales. I can take seasons and local events into account."
+      }
+    },
+    "chat": {
+      "suggestions": {
+        "title": "How can I help you today?",
+        "recipe": "🍳 Show tomorrow's recipes",
+        "menu": "🗓️ Create next week's menu",
+        "tips": "💡 Share sales tips",
+        "plan": "📋 Fetch self-monitoring plan",
+        "weather": "🌤️ How has the weather affected sales?",
+        "marketing": "📊 Create a marketing plan for me",
+        "report": "📋 Fetch today's sales report",
+        "inventory": "📦 Fetch inventory report",
+        "video": "🎥 How to add a video to the customer display?",
+        "socialMedia": "💡 Create a social media post",
+        "surprise": "🎁 Surprise me",
+        "coolerIssue": "⚠️ The cooler is not working!"
+      },
+      "placeholder": "Type a message",
+      "disclaimer": "Your conversations are safe. No data will be used for training.",
+      "imagePreviewAlt": "Preview"
+    },
+    "buttons": {
+      "showInstructions": "Show Instructions"
+    }
+  }
+  

@@ -1,0 +1,293 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  height: 100vh;
+  background-color: white;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  max-width: 600px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.chatContainer {
+  flex-grow: 1; 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.chat {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: clamp(6px, 1.5vw, 10px);
+  background-color: #ffffff;
+  font-size: clamp(0.9rem, 1vw, 1.1rem);
+}
+
+.chatDisclaimer {
+  margin-top: auto; /* Työntää disclaimin alas */
+  font-size: 0.65rem;
+  color: #555;
+  text-align: center;
+  padding: 8px 16px;
+}
+
+.instructions {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: clamp(2px, 1vw, 4px);
+  background-color: #f9f9f9;
+  border: 2px solid #3b4544;
+  border-radius: 16px;
+  font-size: clamp(0.5rem, 1vw, 0.9rem);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.instructions ul {
+  list-style: none;
+  margin: 0;
+}
+
+.instructions ul li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.instructions ul li span {
+  font-size: clamp(0.9rem, 1.0vw, 1.0rem);
+  color: #3b4544;
+}
+
+.instructions ul li div {
+  display: flex;
+  flex-direction: column;
+}
+
+.instructions ul li div strong {
+  font-size: clamp(0.7rem, 1vw, 1.1rem);
+  font-family: "Sommet Bold", sans-serif;
+  margin-bottom: 6px;
+}
+
+.instructions ul li div p {
+  font-size: clamp(0.6rem, 1vw, 0.8rem);
+  margin: 2px;
+  line-height: 1.2;
+  color: #283332;
+}
+
+.instructions {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: clamp(2px, 1vw, 4px);
+  background-color: #f9f9f9;
+  border: 2px solid #3b4544;
+  border-radius: 16px;
+  font-size: clamp(0.6rem, 1vw, 0.8rem);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.fileViewer {
+  flex: 1;
+  overflow-y: auto;
+  padding: clamp(8px, 1vw, 12px);
+  background-color: #f9f9f9;
+  border: 2px solid #3b4544;
+  border-radius: 16px;
+}
+
+.fileViewerBottomArea {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fileToggleWrapper {
+  display: flex;
+  justify-content: center;
+  
+}
+
+.fileToggleButton {
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+}
+
+.fileToggleButton:hover {
+  background-color: #283332;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .column {
+    display: none; /* Piilota vasen sarake mobiilissa */
+  }
+
+  .fullScreenPanel {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+
+  .fullScreenChat {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background-color: white;
+    overflow-y: auto;
+  }
+}
+
+.openPanelButton {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  padding: 10px;
+  background-color: #f9f9f9;
+  color: #283332;
+  border: none;
+  border-radius: 50%; /* Tee painikkeesta ympyrä */
+  font-size: 1.2em; /* Tee ikonista suurempi */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Kevyt varjo painikkeelle */
+}
+
+.openPanelButton:hover {
+  background-color: #283332;
+  color: #fff;
+}
+
+
+.closePanelButton {
+  position: fixed;
+  top: 20px;
+  left: 40px;
+  z-index: 1000;
+  padding: 10px;
+  transform: translateX(-50%);
+  z-index: 1001;
+  padding: 10px;
+  background-color: #f9f9f9;
+  color: white;
+  border: none;
+  border-radius: 50%; /* Tee painikkeesta ympyrä */
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.closePanelButton:hover {
+  background-color: #283332;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0px; /* Siirtää logon alas */
+  padding-top: 0px; /* Lisätty pieni väli logon yläpuolelle */
+  padding-bottom: 0px;
+  padding-bottom: 50px;
+}
+
+.logo {
+  max-width: 180px; /* Logon maksimileveys */
+  max-height: 120px; /* Rajoita korkeutta */
+  height: auto; /* Säilyttää mittasuhteet */
+  object-fit: contain; /* Estää kuvan vääristymisen */
+}
+
+.headerContent {
+  text-align: center; /* Keskittää tekstin */
+  margin-bottom: 10px; /* Lisää hieman väliä muihin elementteihin */
+  padding-top: 5px;
+}
+
+.headerContent h2 {
+  font-size: 1.6rem; /* Asettaa otsikon fonttikoon */
+  font-weight: bold; /* Korostaa otsikkoa */
+  margin: 0; /* Poistaa oletusmarginaalin */
+}
+
+.headerContent p {
+  font-size: 1.2rem; /* Asettaa kappaleen fonttikoon */
+  margin: 5px 0;
+  margin-bottom: 30px; 
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.actionButton {
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  color: #000;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.actionButton:hover {
+  background-color: #ff5733;
+  color: #fff;
+  border-color: #ff5733;
+}

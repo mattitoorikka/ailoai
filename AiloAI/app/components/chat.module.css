@@ -1,0 +1,344 @@
+.ChatContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center; /* Keskittää sisältö vaakasuunnassa */
+  overflow: hidden; /* Estää ylivuodon */
+}
+
+.inputForm {
+  display: flex;
+  width: 100%;
+  max-width: 800px; /* Rajaa syöttökentän ja painikkeen maksimileveyden */
+  padding: 10px;
+  gap: 10px;
+  justify-content: center; /* Keskittää syöttökentän ja painikkeen */
+  margin-top: auto;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  order: 2; /* Lomake sijoitetaan viestien jälkeen */
+}
+
+.input {
+  flex-grow: 1;
+  max-width: 600px; /* Rajaa tekstikentän maksimileveyden */
+  padding: 16px 24px;
+  border-radius: 60px;
+  border: 2px solid transparent;
+  font-size: 1em;
+  background-color: #efefef;
+  box-sizing: border-box;
+}
+
+.chatDisclaimer {
+  display: flex;
+  font-size: 0.65rem;
+  color: #555;
+  text-align: center;
+  padding: 8px 16px;
+  order: 3;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #000;
+  background-color: white;
+}
+
+.button {
+  padding: 8px 24px;
+  background-color: #000;
+  color: white;
+  border: none;
+  font-size: 1em;
+  border-radius: 60px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.button:disabled {
+  background-color: lightgrey;
+}
+
+.placeholder {
+  margin: 8px 0;
+  padding: 12px;
+  text-align: center;
+  color: #555;
+  font-style: italic;
+}
+
+.suggestions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute; /* Keskitetään suhteessa säilöön */
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 16px;
+}
+
+.suggestions h2 {
+  font-size: 1.5em;
+  margin-bottom: 36px; /* Lisää tilaa tekstin ja painikkeiden väliin */
+  font-weight: bold;
+  color: #333; /* Tumma teksti */
+}
+
+.suggestionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.suggestionButton {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background-color: #fff;
+  font-size: 12px;
+  text-align: center;
+  white-space: nowrap; /* Estää tekstin rivittymisen */
+}
+
+.suggestionButton:hover {
+  background-color: #e9e9e9; /* Hieman tummempi hover-tila */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Korostettu hover-varjo */
+}
+
+.suggestionButton span {
+  font-size: 1.2em; /* Kuvakkeen koko */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userMessage,
+.assistantMessage,
+.codeMessage {
+  margin: 8px 0;
+  padding: 8px 16px;
+  align-self: flex-start;
+  border-radius: 15px;
+  max-width: 80%;
+  overflow-wrap: break-word;
+}
+
+.assistantMessage img {
+  max-width: 100%;
+  margin: 8px 0px 8px 0px;
+  border-radius: 8px;
+}
+
+.userMessage {
+  align-self: flex-end;
+  color: #fff;
+  background-color: #000;
+}
+
+.assistantMessage {
+  background-color: #efefef;
+}
+
+.codeMessage {
+  padding: 10px 16px;
+  background-color: #e9e9e9;
+  font-family: monospace;
+  counter-reset: line;
+}
+
+.codeMessage > div {
+  margin-top: 4px;
+}
+
+.codeMessage span {
+  color: #b8b8b8;
+  margin-right: 8px;
+}
+
+.messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  order: 2;
+  white-space: pre-wrap;
+  min-width: 300px;
+  max-width: 1000px;
+}
+
+/* Ikonipainike (ilman taustaväriä) */
+.iconButton {
+  background: none; /* Ei taustaväriä */
+  border: none; /* Ei reunuksia */
+  font-size: 1.5em; /* Kuvakkeen koko */
+  color: #555; /* Kuvakkeen väri */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px; /* Pieni marginaali ikonille */
+  transition: color 0.3s ease;
+}
+
+.iconButton:hover {
+  color: #000; /* Tummentaa väriä hover-tilassa */
+}
+
+.hiddenFileInput {
+  display: none; /* Piilota tiedoston valintakenttä */
+}
+
+/* Ryhmä tekstikentälle ja painikkeille */
+.inputGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Väli ikonipainikkeen ja tekstikentän välillä */
+  flex-grow: 1;
+}
+
+/* Tekstikenttä */
+.inputGroup .input {
+  flex-grow: 1; /* Tekstikenttä vie loput tilasta */
+}
+
+.imagePreview {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.previewImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.assistantMessage.typing::after {
+  content: "";
+  display: inline-block;
+  animation: dots 1.5s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0% {
+    content: "";
+  }
+
+  33% {
+    content: ".";
+  }
+
+  66% {
+    content: "..";
+  }
+
+  100% {
+    content: "...";
+  }
+}
+
+@media (max-width: 720px),
+(max-height: 750px) {
+  .suggestions {
+    position: relative;
+    transform: none;
+    top: auto;
+    left: auto;
+    padding: 10px;
+    margin-top: 16px;
+    max-width: 100%;
+  }
+
+  .suggestions h2 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .suggestionButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 12px;
+    width: 100%;
+    padding: 8px 12px;
+    box-sizing: border-box;
+  }
+
+  .suggestionButton {
+    flex: 1 1 calc(45% - 8px);
+    /* max 2 nappia per rivi */
+    min-width: 110px;
+    max-width: 180px;
+    padding: 8px 14px;
+    font-size: 13.5px;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 14px;
+    white-space: nowrap;
+  }
+
+  .inputForm {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 10;
+  }
+
+  .input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .button {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .imagePreview {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .previewImage {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  .chatDisclaimer {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

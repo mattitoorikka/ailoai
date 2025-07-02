@@ -1,0 +1,56 @@
+{
+    "header": {
+      "title": "Solmio Ailo®",
+      "description": "Ailo® on Solmion täysin uudenlainen työkaveri ravintoloille! Voit keskustella kanssani mistä vain, kuten ihmiselle 😊"
+    },
+    "instructions": {
+      "support": {
+        "title": "Solmio tukipalvelu:",
+        "description": "Saat nopeasti tukea kaikissa asioissa, osaan kertoa miten toimia, jos haluat luoda uusia tuotteita tai verkkoyhteyden kanssa on ongelmia."
+      },
+      "productInfo": {
+        "title": "Tuotetiedot",
+        "description": "Tiedän aina ajankohtaiset tiedot tuotteista ja raaka-aineista."
+      },
+      "cashReports": {
+        "title": "Kassaraportit:",
+        "description": "Haen puolestasi kaikki kassaraportit ja osaan verrata niitä mihin haluat."
+      },
+      "inventory": {
+        "title": "Varasto:",
+        "description": "Reaaliaikainen varastosaldo, aina ja missä vain."
+      },
+      "imageAnalysis": {
+        "title": "Kuvien analysointi:",
+        "description": "Voit ladata minulle kuvan vaikkapa ravintolasalista, salaattipöydästä tai varastosta ja osaan kertoa onko se ohjeistuksen mukainen."
+      },
+      "marketing": {
+        "title": "Markkinointi ja myynninedistäminen:",
+        "description": "Voit kysyä minulta vinkkejä myynnin edistämiseksi. Osaan ottaa huomioon sesongit ja paikkakunnan tapahtumat."
+      }
+    },
+    "chat": {
+      "suggestions": {
+        "title": "Miten voin auttaa sinua tänään?",
+        "recipe": "🍳 Näytä huomisen reseptit",
+        "menu": "🗓️ Luo ensi viikon lounaslista",
+        "tips": "💡 Kerro myyntivinkkejä",
+        "plan": "📋 Hae omavalvontasuunnitelma",
+        "weather": "🌤️ Miten säätila on vaikuttanut myyntiini?",
+        "marketing": "📊 Luo minulle markkinointisuunnitelma",
+        "report": "📋 Hae päivän myyntiraportti",
+        "inventory": "📦 Hae varastoraportti",
+        "video": "🎥 Miten lisään asiakasnäytölle videon?",
+        "socialMedia": "💡 Luo somepostaus",
+        "surprise": "🎁 Yllätä minut",
+        "coolerIssue": "⚠️ Kylmiö ei toimi!"
+      },
+      "placeholder": "Kirjoita viesti",
+      "disclaimer": "Keskustelusi on turvallinen. Tietoja ei käytetä koulutukseen.",
+      "imagePreviewAlt": "Esikatselukuva"
+    },
+    "buttons": {
+      "showInstructions": "Näytä ohjeet"
+    }
+  }
+  

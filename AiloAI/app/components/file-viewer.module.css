@@ -1,0 +1,134 @@
+.fileViewer {
+  position: relative; /* Luo konteksti absoluuttisille lapsielementeille */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Järjestää sisällön ylhäältä alas */
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+}
+
+.filesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch; /* Tiedostot venyvät täyttämään tilan */
+  width: 100%;
+  padding: 8px;
+  flex-grow: 1; /* Ottaa kaiken ylimääräisen tilan */
+  overflow-y: auto; /* Salli pystysuuntainen vieritys */
+}
+
+.fileEntry {
+  display: flex;
+  justify-content: space-between; /* Jakaa tiedostonimen ja toiminnon tasaisesti */
+  align-items: center;
+}
+
+.fileEntry:hover {
+  transform: translateY(-2px); /* Korostettu hover-efekti */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.fileName {
+  flex-grow: 1; /* Venyttää tiedostonimen täyttämään tilan */
+  font-size: 0.9em; /* Kompakti fonttikoko */
+  color: #333; /* Tumma teksti */
+  overflow-wrap: break-word; /* Rivittää pitkät nimet */
+}
+
+.fileStatus {
+  display:none
+}
+
+.fileDeleteIcon {
+  font-size: 1.2em; /* Helppolukuinen koko */
+  color: #ff4d4f; /* Punainen väri poistolle */
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease; /* Hover-animaatio */
+}
+
+.fileDeleteIcon:hover {
+  color: #d32f2f; /* Tummempi punainen hoverilla */
+  transform: scale(1.1); /* Pieni suurennus hoverilla */
+}
+
+.fileUploadContainer {
+  display: flex;
+  flex-wrap: wrap; /* Sallii nappien rivittymisen */
+  justify-content: center; /* Keskittää napit */
+  gap: 12px; /* Väli nappien välillä */
+  padding: 12px;
+}
+
+.fileUploadBtn {
+  background-color: #3b4544;
+  color: white;
+  padding: 8px 16px; /* Kompakti koko */
+  border-radius: 24px; /* Pyöristetty muotoilu */
+  font-size: 0.9em; /* Pienempi fonttikoko */
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.fileUploadBtn:hover {
+  background-color: #2a3231; /* Tummempi hover-väri */
+  transform: scale(1.05); /* Kevyt suurennus hoverilla */
+}
+
+.fileUploadInput {
+  display: none; /* Piilottaa tiedostonvalintaelementin */
+}
+
+.title {
+  font-size: 1em;
+  font-weight: 600;
+  text-align: center;
+  color: #333; /* Tumma teksti */
+  margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+  .fileViewer {
+    padding: 10px; /* Tiiviimpi mobiilikäyttö */
+    border-radius: 12px;
+  }
+
+  .filesList {
+    gap: 8px; /* Vähemmän väliä mobiilissa */
+    padding: 6px;
+  }
+
+  .fileEntry {
+    flex-direction: column; /* Pystysuuntainen asettelu mobiilissa */
+    align-items: flex-start; /* Tasaus vasemmalle mobiilissa */
+    gap: 6px; /* Väli elementtien välillä mobiilissa */
+    padding: 10px; /* Tiiviimpi mobiilikäyttöön */
+  }
+
+  .fileName {
+    font-size: 0.8em; /* Pienempi fonttikoko mobiilissa */
+  }
+
+  .fileDeleteIcon {
+    font-size: 1em; /* Säilytetään ikonien koko luettavana */
+    align-self: flex-end; /* Sijoittaa kuvakkeen oikealle mobiilissa */
+  }
+
+  .fileUploadContainer {
+    justify-content: space-between; /* Jakaa napit tasaisesti mobiilissa */
+    gap: 8px; /* Vähemmän väliä nappien välillä mobiilissa */
+  }
+
+  .fileUploadBtn {
+    padding: 6px 12px; /* Pienempi nappikoko mobiilissa */
+    font-size: 0.8em; /* Pienempi fonttikoko mobiilissa */
+    border-radius: 16px; /* Pyöristetyt reunat mobiilissa */
+  }
+
+  .title {
+    font-size: 0.9em; /* Pienempi otsikkoteksti mobiilissa */
+  }
+}
