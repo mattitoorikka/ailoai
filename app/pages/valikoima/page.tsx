@@ -130,6 +130,13 @@ const ValikoimaPage = () => {
                     <p>Tiedän aina ajankohtaiset tiedot tuotteista ja raaka-aineista.</p>
                   </div>
                 </li>
+                <li>
+                  <span>🥗</span>
+                  <div>
+                    <strong>Reseptipankki:</strong>
+                    <p>Minulla on pääsy reseptipankkiin, kysy esimerkiksi aasialaisia reseptejä.</p>
+                  </div>
+                </li>
               </ul>
 
               <div className={styles.fileViewerBottomArea}>
