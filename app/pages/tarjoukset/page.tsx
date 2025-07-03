@@ -95,8 +95,8 @@ const TarjouspyyntoPage = () => {
 
               <div className={styles.fileViewerBottomArea}>
                 <div className={styles.buttonRow}>
-                  <Link href="/pages/tarjouspyynnot" className={styles.actionButton}>
-                    🔄 Uusi keskustelu
+                  <Link href="/pages/tarjoukset" className={styles.actionButton}>
+                    🧹 Uusi keskustelu
                   </Link>
                   <Link href="/" className={styles.actionButton}>
                     🔙 Etusivulle
@@ -114,7 +114,7 @@ const TarjouspyyntoPage = () => {
 
                 {isFileViewerOpen && assistantId && (
                   <div className={styles.fileViewer}>
-                    <FileViewer assistantId={assistantId} />
+                    <FileViewer topic={topic} />
                   </div>
                 )}
               </div>

@@ -89,7 +89,7 @@ const HRPage = () => {
               <div className={styles.fileViewerBottomArea}>
                 <div className={styles.buttonRow}>
                   <Link href="/pages/hr" className={styles.actionButton}>
-                    🔄 Uusi keskustelu
+                    🧹 Uusi keskustelu
                   </Link>
                   <Link href="/" className={styles.actionButton}>
                     🔙 Etusivulle
@@ -107,7 +107,7 @@ const HRPage = () => {
 
                 {isFileViewerOpen && assistantId && (
                   <div className={styles.fileViewer}>
-                    <FileViewer assistantId={assistantId} />
+                    <FileViewer topic="hr" />
                   </div>
                 )}
               </div>

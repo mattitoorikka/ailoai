@@ -90,10 +90,10 @@ const YleinenPage = () => {
               <div className={styles.fileViewerBottomArea}>
                 <div className={styles.buttonRow}>
                   <Link href="/pages/yleinen" className={styles.actionButton}>
-                    🔄 New chat
+                    🧹 Uusi keskustelu
                   </Link>
                   <Link href="/" className={styles.actionButton}>
-                    🔙 Home
+                    🔙 Etusivulle
                   </Link>
                 </div>
 
@@ -108,7 +108,7 @@ const YleinenPage = () => {
 
                 {isFileViewerOpen && assistantId && (
                   <div className={styles.fileViewer}>
-                    <FileViewer assistantId={assistantId} />
+                    <FileViewer topic="yleinen" />
                   </div>
                 )}
               </div>

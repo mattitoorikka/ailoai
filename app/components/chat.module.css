@@ -5,21 +5,21 @@
   height: 100%;
   width: 100%;
   justify-content: flex-start;
-  align-items: center; /* Keskittää sisältö vaakasuunnassa */
-  overflow: hidden; /* Estää ylivuodon */
+  align-items: center; 
+  overflow: hidden; 
 }
 
 .inputForm {
   display: flex;
   width: 100%;
-  max-width: 800px; /* Rajaa syöttökentän ja painikkeen maksimileveyden */
+  max-width: 800px; 
   padding: 10px;
   gap: 10px;
-  justify-content: center; /* Keskittää syöttökentän ja painikkeen */
+  justify-content: center; 
   margin-top: auto;
   box-sizing: border-box;
   background-color: #ffffff;
-  order: 2; /* Lomake sijoitetaan viestien jälkeen */
+  order: 2;
 }
 
 .input {
@@ -132,6 +132,8 @@
   border-radius: 15px;
   max-width: 80%;
   overflow-wrap: break-word;
+  word-break: break-word;
+  box-sizing: border-box;
 }
 
 .assistantMessage img {
@@ -143,7 +145,7 @@
 .userMessage {
   align-self: flex-end;
   color: #fff;
-  background-color: #000;
+  background-color:#283332;
 }
 
 .assistantMessage {
@@ -263,6 +265,20 @@
     margin-top: 16px;
     max-width: 100%;
   }
+    @media (max-width: 720px) {
+  
+      .userMessage,
+      .assistantMessage,
+      .codeMessage {
+        max-width: 100%;
+        /* vie koko rivin leveys */
+        width: 100%;
+        /* pakottaa venymään */
+        font-size: 1rem;
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+    }
 
   .suggestions h2 {
     font-size: 1.4rem;
@@ -279,18 +295,20 @@
     box-sizing: border-box;
   }
 
-  .suggestionButton {
-    flex: 1 1 calc(45% - 8px);
-    /* max 2 nappia per rivi */
-    min-width: 110px;
-    max-width: 180px;
-    padding: 8px 14px;
-    font-size: 13.5px;
-    font-size: 12px;
-    padding: 6px 10px;
-    border-radius: 14px;
-    white-space: nowrap;
-  }
+    .suggestionButton {
+      flex: 1 1 calc(50% - 10px);
+      min-width: 120px;
+      max-width: 100%;
+      padding: 8px 12px;
+      font-size: 13px;
+      border-radius: 14px;
+      white-space: normal;
+      text-align: center;
+      word-break: break-word;
+      box-sizing: border-box;
+    }
+  
+  
 
   .inputForm {
     flex-direction: column;
@@ -341,4 +359,5 @@
     flex-direction: column;
     align-items: center;
   }
+  
 }

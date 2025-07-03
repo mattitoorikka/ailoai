@@ -133,11 +133,11 @@ const AllFeatures = () => {
   
               <div className={styles.fileViewerBottomArea}>
                 <div className={styles.buttonRow}>
-                  <Link href="/pages/yleinen" className={styles.actionButton}>
-                    🔄 New chat
+                  <Link href="/pages/markkinointi" className={styles.actionButton}>
+                    🧹 Uusi keskustelu
                   </Link>
                   <Link href="/" className={styles.actionButton}>
-                    🔙 Home
+                    🔙 Etusivulle
                   </Link>
                 </div>
   
@@ -152,7 +152,7 @@ const AllFeatures = () => {
   
                 {isFileViewerOpen && assistantId && (
                   <div className={styles.fileViewer}>
-                    <FileViewer assistantId={assistantId} />
+                    <FileViewer topic={topic} />
                   </div>
                 )}
               </div>

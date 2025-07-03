@@ -102,7 +102,7 @@ export default function Home() {
             title: "📝 HR",
             subtitle:
               "Avustan työvuorosuunnittelussa, tunnen TES:sin ja lainsäädännön ja osaan ehdottaa muutoksia äkillisissä tarpeissa.",
-            path: "/pages/HR",
+            path: "/pages/hr",
           },
           {
             title: "📝 Tarjouspyynnöt",

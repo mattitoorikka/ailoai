@@ -3,16 +3,17 @@
 import React, { useState, useEffect } from "react";
 import styles from "./file-viewer.module.css";
 import { useAiFetch } from "@/app/lib/aiFetch";
+import { useAssistantId } from "@/app/hooks/useAssistantId";
 
-type FileData = {
+interface FileData {
   file_id: string;
   filename: string;
   status?: string;
-};
+}
 
-type FileViewerProps = {
-  assistantId: string;
-};
+interface FileViewerProps {
+  topic: string;
+}
 
 const TrashIcon = () => (
   <svg
@@ -31,12 +32,14 @@ const TrashIcon = () => (
   </svg>
 );
 
-const FileViewer = ({ assistantId }: FileViewerProps) => {
-  const aiFetch = useAiFetch();
+const FileViewer: React.FC<FileViewerProps> = ({ topic }) => {
+  const assistantId = useAssistantId(topic);
+  const aiFetch = useAiFetch(topic);
   const [files, setFiles] = useState<FileData[]>([]);
 
   useEffect(() => {
-    if (assistantId) fetchFiles();
+    if (!assistantId) return;
+    fetchFiles();
   }, [assistantId]);
 
   const fetchFiles = async () => {
@@ -53,9 +56,7 @@ const FileViewer = ({ assistantId }: FileViewerProps) => {
     setFiles(data);
   };
 
-  const handleFileUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.length) return;
 
     const formData = new FormData();
@@ -89,6 +90,7 @@ const FileViewer = ({ assistantId }: FileViewerProps) => {
 
   return (
     <div className={styles.fileViewer}>
+
       <div
         className={`${styles.filesList} ${
           visibleFiles.length !== 0 ? styles.grow : ""
@@ -110,6 +112,7 @@ const FileViewer = ({ assistantId }: FileViewerProps) => {
           ))
         )}
       </div>
+
       <div className={styles.fileUploadContainer}>
         <label htmlFor="file-upload" className={styles.fileUploadBtn}>
           Attach files
@@ -123,7 +126,7 @@ const FileViewer = ({ assistantId }: FileViewerProps) => {
           onChange={handleFileUpload}
         />
         <button onClick={fetchFiles} className={styles.fileUploadBtn}>
-          Update
+          Päivitä
         </button>
       </div>
     </div>

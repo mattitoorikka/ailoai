@@ -322,9 +322,15 @@ const Chat = ({
           placeholder="Kirjoita viestisi..."
           disabled={inputDisabled}
         />
-        <button type="submit" className={styles.button} disabled={inputDisabled || !userInput.trim()}>
+        <button
+          type="submit"
+          className={styles.button}
+          disabled={inputDisabled || !userInput.trim() || !threadId}
+          >
           ➤
         </button>
+
+        
       </form>
 
       <p className={styles.chatDisclaimer}>

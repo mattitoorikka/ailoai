@@ -8,10 +8,12 @@ async function parseRequestData(req: Request) {
     return { ...json };
   }
 
-  if (contentType?.includes("multipart/form-data")) {
+  if (contentType?.startsWith("multipart/form-data")) {
     const formData = await req.formData();
     const obj: Record<string, any> = {};
-    formData.forEach((value, key) => (obj[key] = value));
+    formData.forEach((value, key) => {
+      obj[key] = typeof value === "string" ? value : value;
+    });
     return obj;
   }
 
@@ -23,7 +25,9 @@ const getOrCreateVectorStore = async (assistantId: string) => {
     const assistant = await openai.beta.assistants.retrieve(assistantId);
 
     const existing = assistant.tool_resources?.file_search?.vector_store_ids?.[0];
-    if (existing) return existing;
+    if (existing) {
+      return existing;
+    }
 
     const vectorStore = await openai.vectorStores.create({
       name: `vector-store-${assistantId}`,
@@ -39,7 +43,6 @@ const getOrCreateVectorStore = async (assistantId: string) => {
 
     return vectorStore.id;
   } catch (error) {
-    console.error("Error in getOrCreateVectorStore:", error);
     throw error;
   }
 };
@@ -47,11 +50,12 @@ const getOrCreateVectorStore = async (assistantId: string) => {
 export async function POST(request: Request) {
   try {
     const data = await parseRequestData(request);
-    const assistantId = data.assistantId as string | undefined;
+
+    const assistantId = data.assistantId as string;
     const action = data.action;
     const file = data.file as File | undefined;
 
-    if (!assistantId) {
+    if (!assistantId || typeof assistantId !== "string") {
       return new Response("assistantId missing", { status: 400 });
     }
 
@@ -64,17 +68,13 @@ export async function POST(request: Request) {
         fileList.data.map(async (file) => {
           try {
             const fileDetails = await openai.files.retrieve(file.id);
-            const vectorFileDetails = await openai.vectorStores.files.retrieve(
-              vectorStoreId,
-              file.id
-            );
+            const vectorFileDetails = await openai.vectorStores.files.retrieve(vectorStoreId, file.id);
             return {
               file_id: file.id,
               filename: fileDetails.filename,
               status: vectorFileDetails.status,
             };
-          } catch (error) {
-            console.error(`Error retrieving file ${file.id}:`, error);
+          } catch {
             return {
               file_id: file.id,
               filename: "Unknown",
@@ -88,7 +88,7 @@ export async function POST(request: Request) {
     }
 
     if (file instanceof File) {
-      const maxSize = 500 * 1024 * 1024; // 500MB
+      const maxSize = 500 * 1024 * 1024;
       if (file.size > maxSize) {
         return new Response("File too large", { status: 400 });
       }
@@ -106,12 +106,13 @@ export async function POST(request: Request) {
         message: "File uploaded successfully",
         file_id: openaiFile.id,
         filename: file.name,
+        assistantId: assistantId,
+        vectorStoreId: vectorStoreId,
       });
     }
 
     return new Response("No file or action provided", { status: 400 });
   } catch (error) {
-    console.error("POST error:", error);
     return new Response(
       `Error: ${error instanceof Error ? error.message : "Unknown error"}`,
       { status: 500 }
@@ -122,7 +123,9 @@ export async function POST(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const data = await parseRequestData(request);
-    const { assistantId, fileId } = data;
+
+    const assistantId = data.assistantId;
+    const fileId = data.fileId;
 
     if (!assistantId || !fileId) {
       return new Response("assistantId or fileId missing", { status: 400 });
@@ -134,13 +137,17 @@ export async function DELETE(request: Request) {
 
     try {
       await openai.files.del(fileId);
-    } catch (error) {
-      console.warn("Could not delete file from OpenAI storage:", error);
+    } catch {
+      // Optional: fail silently if file not found in OpenAI storage
     }
 
-    return Response.json({ message: "File deleted successfully" });
+    return Response.json({
+      message: "File deleted successfully",
+      assistantId: assistantId,
+      fileId: fileId,
+      vectorStoreId: vectorStoreId,
+    });
   } catch (error) {
-    console.error("DELETE error:", error);
     return new Response(
       `Error: ${error instanceof Error ? error.message : "Unknown error"}`,
       { status: 500 }

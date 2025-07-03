@@ -141,11 +141,11 @@ const ValikoimaPage = () => {
 
               <div className={styles.fileViewerBottomArea}>
                 <div className={styles.buttonRow}>
-                  <Link href="/pages/yleinen" className={styles.actionButton}>
-                    🔄 New chat
+                  <Link href="/pages/valikoima" className={styles.actionButton}>
+                    🧹 Uusi keskustelu
                   </Link>
                   <Link href="/" className={styles.actionButton}>
-                    🔙 Home
+                    🔙 Etusivulle
                   </Link>
                 </div>
 
@@ -160,7 +160,7 @@ const ValikoimaPage = () => {
 
                 {isFileViewerOpen && assistantId && (
                   <div className={styles.fileViewer}>
-                    <FileViewer assistantId={assistantId} />
+                    <FileViewer topic={topic} />
                   </div>
                 )}
               </div>
