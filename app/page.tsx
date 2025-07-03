@@ -72,7 +72,7 @@ export default function Home() {
           color: "#283332",
         }}
       >
-        Klikkaa sinua kiinnostavaa aihealuetta ja hyppää mukaan Ailo-maailmaan.
+        Klikkaa sinua kiinnostavaa aihealuetta ja hyppää mukaan Ailo-maailmaan. Kysy mitä haluat.
       </h2>
 
       {/* Aihekortit */}
