@@ -1,7 +1,7 @@
 // assistant-config.ts
 
 export const STATIC_ASSISTANT_IDS: Record<string, string> = {
-  yleinen: "asst_K9yFCWJQ39GPlNkc32RAHuiY",
+  yleinen: "asst_Cl9rGY7cTeEWCpahVNn1jUZo",
   valikoima: "asst_9PsbxISdv300MLk7perkxQec",
   markkinointi: "asst_JlagRMAPpWkIPcFYHDQc1csW",
   tarjouspyynnot: "asst_E4rbTTvbmnbwl7vrcv3Us87Y",
