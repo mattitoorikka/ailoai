@@ -139,6 +139,13 @@ const AllFeatures = () => {
                   <Link href="/" className={styles.actionButton}>
                     🔙 Etusivulle
                   </Link>
+                  <li>
+                  <span>💡</span>
+                  <div>
+                    <strong>Ailo räätälöitynä</strong>
+                    <p>Haluatko Ailon räätälöitynä juuri sinun yrityksellesi? Ota yhteyttä myynti@solmiokassa.fi</p>
+                  </div>
+                </li>
                 </div>
   
                 <div className={styles.fileToggleWrapper}>
