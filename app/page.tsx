@@ -39,7 +39,7 @@ export default function Home() {
 
         {/* Otsikko keskelle */}
         <div style={{ flex: "1", textAlign: "center", marginRight: "200px" }}>
-          <h1 style={{ fontSize: "2.7rem", fontWeight: "bold", margin: 0 }}>
+          <h1 style={{ fontSize: "2.2rem", fontWeight: "bold", margin: 0 }}>
             Solmio Ailo
             <span style={{ fontSize: "1rem", verticalAlign: "super" }}>TM</span>
           </h1>
@@ -51,22 +51,21 @@ export default function Home() {
       <p
         style={{
           fontSize: "1.3rem",
-          marginBottom: "2.5rem",
+          marginBottom: "1.0rem",
           textAlign: "left",
           maxWidth: "800px",
           marginLeft: "auto",
           marginRight: "auto",
         }}
       >
-        Tervetuloa Ailoon – tekoälytyökaveri, joka tuo tehokkuutta ravintolasi arkeen.
-        Ailo auttaa sinua kampanjoiden ideoinnissa, ruokalistan suunnittelussa ja yleisissä asioissa –
+        Tervetuloa Ailoon – tekoälytyökaveri, joka tuo tehokkuutta ravintolasi arkeen. Ailo auttaa sinua kampanjoiden ideoinnissa, ruokalistan suunnittelussa ja yleisissä asioissa –
         nopeasti, helposti ja datalla pohjaten. Voit myös ladata mukaan oman ravintolasi tiedostoja ja saat juuri sinulle räätälöityä apua.
       </p>
 
       {/* Aihealueiden otsikko */}
       <h2
         style={{
-          fontSize: "1.6rem",
+          fontSize: "1.2rem",
           marginBottom: "1.5rem",
           textAlign: "center",
           color: "#283332",
@@ -82,7 +81,7 @@ export default function Home() {
           flexWrap: "wrap",
           gap: "2rem",
           justifyContent: "space-between",
-          marginBottom: "3rem",
+          marginBottom: "1rem",
         }}
       >
         {[
@@ -122,8 +121,8 @@ export default function Home() {
             onClick={() => router.push(topic.path)}
             style={{
               flex: "1 1 30%",
-              minWidth: "320px",
-              padding: "2rem",
+              minWidth: "220px",
+              padding: "1rem",
               backgroundColor: "#f89420",
               color: "#283332",
               fontWeight: "bold",
