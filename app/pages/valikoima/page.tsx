@@ -137,6 +137,13 @@ const ValikoimaPage = () => {
                     <p>Minulla on pääsy reseptipankkiin, kysy esimerkiksi aasialaisia reseptejä.</p>
                   </div>
                 </li>
+                <li>
+                  <span>💡</span>
+                  <div>
+                    <strong>Ailo räätälöitynä</strong>
+                    <p>Haluatko Ailon räätälöitynä juuri sinun yrityksellesi? Ota yhteyttä myynti@solmiokassa.fi</p>
+                  </div>
+                </li>
               </ul>
 
               <div className={styles.fileViewerBottomArea}>
@@ -147,6 +154,14 @@ const ValikoimaPage = () => {
                   <Link href="/" className={styles.actionButton}>
                     🔙 Etusivulle
                   </Link>
+                  <button
+                    className={styles.actionButton}
+                    onClick={() => {
+                      window.location.href = '/api/auth/logout';
+                    }}
+                  >
+                    🔒 Logout
+                  </button>
                 </div>
 
                 <div className={styles.fileToggleWrapper}>

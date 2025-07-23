@@ -129,6 +129,13 @@ const AllFeatures = () => {
                     <p>Voit kysyä minulta vinkkejä myynnin edistämiseksi. Osaan ottaa huomioon sesongit ja paikkakunnan tapahtumat.</p>
                   </div>
                 </li>
+                <li>
+                  <span>💡</span>
+                  <div>
+                    <strong>Ailo räätälöitynä</strong>
+                    <p>Haluatko Ailon räätälöitynä juuri sinun yrityksellesi? Ota yhteyttä myynti@solmiokassa.fi</p>
+                  </div>
+                </li>
               </ul>
   
               <div className={styles.fileViewerBottomArea}>
@@ -139,6 +146,14 @@ const AllFeatures = () => {
                   <Link href="/" className={styles.actionButton}>
                     🔙 Etusivulle
                   </Link>
+                  <button
+                    className={styles.actionButton}
+                    onClick={() => {
+                      window.location.href = '/api/auth/logout';
+                    }}
+                  >
+                    🔒 Logout
+                  </button>
                 </div>
   
                 <div className={styles.fileToggleWrapper}>

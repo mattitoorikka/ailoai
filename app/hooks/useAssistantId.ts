@@ -1,17 +1,32 @@
-const ASSISTANT_IDS: Record<string, string> = {
-  yleinen: "asst_K9yFCWJQ39GPlNkc32RAHuiY",
-  valikoima: "asst_9PsbxISdv300MLk7perkxQec",
-  markkinointi: "asst_JlagRMAPpWkIPcFYHDQc1csW",
-  tarjouspyynnot: "asst_E4rbTTvbmnbwl7vrcv3Us87Y",
-  hr: "asst_7gIwcj44bbmqnnZHv6J8W3VY",
-};
+import { useEffect, useState } from "react";
+import { STATIC_ASSISTANT_IDS, DEFAULT_TOPIC } from "@/app/assistant-config";
 
-const DEFAULT_TOPIC = "yleinen";
+export function useAssistantId(topic: string = DEFAULT_TOPIC): string | null {
+  const [assistantId, setAssistantId] = useState<string | null>(null);
 
-export function getStaticAssistantId(): string {
-  return ASSISTANT_IDS[DEFAULT_TOPIC];
-}
+  useEffect(() => {
+    const fetchMetadata = async () => {
+      try {
+        const res = await fetch("/api/user");
+        const data = await res.json();
 
-export function useAssistantId(topic: string = DEFAULT_TOPIC): string {
-  return ASSISTANT_IDS[topic] ?? getStaticAssistantId();
+        const topicId = data.user_metadata?.assistant_ids?.[topic];
+        const generalId = data.user_metadata?.assistant_id;
+
+        const fallback = STATIC_ASSISTANT_IDS[topic] || STATIC_ASSISTANT_IDS[DEFAULT_TOPIC];
+
+        const resolved = topicId || generalId || fallback;
+
+        setAssistantId(resolved);
+      } catch (err) {
+        console.error("Failed to fetch user metadata", err);
+        const fallback = STATIC_ASSISTANT_IDS[topic] || STATIC_ASSISTANT_IDS[DEFAULT_TOPIC];
+        setAssistantId(fallback);
+      }
+    };
+
+    fetchMetadata();
+  }, [topic]);
+
+  return assistantId;
 }

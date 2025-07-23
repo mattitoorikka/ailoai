@@ -34,63 +34,78 @@ const TrashIcon = () => (
 
 const FileViewer: React.FC<FileViewerProps> = ({ topic }) => {
   const assistantId = useAssistantId(topic);
-  const aiFetch = useAiFetch(topic);
+  const aiFetchFn = useAiFetch(topic);
   const [files, setFiles] = useState<FileData[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!assistantId) return;
-    fetchFiles();
-  }, [assistantId]);
+  const fetchFiles = async (aiFetch: ReturnType<typeof useAiFetch>) => {
+    if (!assistantId || !aiFetch) return;
 
-  const fetchFiles = async () => {
     const formData = new FormData();
     formData.append("action", "list");
     formData.append("assistantId", assistantId);
 
-    const res = await aiFetch("/api/assistants/files", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const res = await aiFetch("/api/assistants/files", {
+        method: "POST",
+        body: formData,
+      });
 
-    const data = await res.json();
-    setFiles(data);
+      const data = await res.json();
+      setFiles(data);
+    } catch (err) {
+      console.error("Tiedostojen haku epäonnistui", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files?.length) return;
+    if (!event.target.files?.length || !aiFetchFn || !assistantId) return;
 
     const formData = new FormData();
     formData.append("file", event.target.files[0]);
     formData.append("assistantId", assistantId);
 
-    await aiFetch("/api/assistants/files", {
+    await aiFetchFn("/api/assistants/files", {
       method: "POST",
       body: formData,
     });
 
-    fetchFiles();
+    fetchFiles(aiFetchFn);
   };
 
   const handleFileDelete = async (fileId: string) => {
+    if (!aiFetchFn || !assistantId) return;
+
     const formData = new FormData();
     formData.append("fileId", fileId);
     formData.append("assistantId", assistantId);
 
-    await aiFetch("/api/assistants/files", {
+    await aiFetchFn("/api/assistants/files", {
       method: "DELETE",
       body: formData,
     });
 
-    fetchFiles();
+    fetchFiles(aiFetchFn);
   };
+
+  useEffect(() => {
+    if (assistantId && aiFetchFn) {
+      fetchFiles(aiFetchFn);
+    }
+  }, [assistantId, aiFetchFn]);
 
   const visibleFiles = Array.isArray(files)
     ? files.filter((file) => !file.filename?.toLowerCase().includes("hide"))
     : [];
 
+  if (!assistantId || !aiFetchFn || loading) {
+    return <p className={styles.loading}>🔄 Ladataan tiedostoja...</p>;
+  }
+
   return (
     <div className={styles.fileViewer}>
-
       <div
         className={`${styles.filesList} ${
           visibleFiles.length !== 0 ? styles.grow : ""
@@ -125,7 +140,7 @@ const FileViewer: React.FC<FileViewerProps> = ({ topic }) => {
           multiple
           onChange={handleFileUpload}
         />
-        <button onClick={fetchFiles} className={styles.fileUploadBtn}>
+        <button onClick={() => fetchFiles(aiFetchFn)} className={styles.fileUploadBtn}>
           Päivitä
         </button>
       </div>
