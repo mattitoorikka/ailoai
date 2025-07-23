@@ -111,7 +111,7 @@ export default function Home() {
             path: "/pages/tarjoukset",
           },
           {
-            title: "📝 Tukipalvelut, ongelmanratkaisu ja sisäinen viestintä",
+            title: "📝 Yleinen tuki, ongelmanratkaisu ja sisäinen viestintä",
             subtitle:
               "Helpota arkea! Ailo auttaa tilanteissa, jossa kassa ei toimi, kylmiö on lämmin tai terveystarkastaja tarvitsee tietoja – selkeästi ja helposti. Osaan avustaa myös perehdytyksessä tai vaikkapa pisteen avauksessa tuuraajalle.",
             path: "/pages/yleinen",
