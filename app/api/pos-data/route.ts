@@ -1,20 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "@auth0/nextjs-auth0/edge";
 
 export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getSession(req, NextResponse.next());
-    const token = session?.user?.["https://yourdomain.com/solmio_api_token"];
-
-
-    if (!token) {
-      return NextResponse.json(
-        { error: "Authorization token missing" },
-        { status: 401 }
-      );
-    }
+    // Kovakoodattu Solmio API -token
+    const token = "bNgMy8BbrqsTCIW09eeu6NFyWvIgAP";
 
     // Lue query-parametrit
     const { searchParams } = new URL(req.url);
@@ -26,12 +17,13 @@ export async function GET(req: NextRequest) {
       timeScale
     )}&datetime_request=${encodeURIComponent(datetimeRequest)}`;
 
-    // Kutsutaan Solmio APIa tokenilla
+    // Kutsutaan Solmio APIa kovakoodatulla tokenilla
     const response = await fetch(apiUrl, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+
     if (!response.ok) {
       return NextResponse.json(
         { error: "Failed to call Solmio API" },

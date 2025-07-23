@@ -1,33 +1,19 @@
-// app/api/inventory-status/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "@auth0/nextjs-auth0/edge";
 
-// Tämä tiedosto käyttää edge-runtimea, jotta session-luku on mahdollista 
+// Ei käytetä enää sessionia, mutta edge-runtime on silti ok
 export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
   try {
-    // 1. Hae sessio
-    const session = await getSession(req, NextResponse.next());
+    // Kovakoodattu Solmio API -token
+    const token = "bNgMy8BbrqsTCIW09eeu6NFyWvIgAP";
 
-    // 2. Hae token custom claimista
-    const token = session?.user?.["https://yourdomain.com/solmio_api_token"];
-
-    if (!token) {
-      console.error("Authorization token is missing from custom claim");
-      return NextResponse.json(
-        { error: "Authorization token is missing" },
-        { status: 401 }
-      );
-    }
-
-    // 3. Lue query-parametrit
+    // Lue query-parametrit
     const { searchParams } = new URL(req.url);
     const today = new Date().toISOString().split("T")[0] + "T06:00:00+02";
     const date = searchParams.get("date") || today;
 
-
-    // 4. Rakenna Solmio API -url
+    // Rakenna Solmio API -url
     const apiUrl = `https://api.solmio.net/api/calculated-inventory-status-v2/?date=${encodeURIComponent(
       date
     )}`;
@@ -40,12 +26,8 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    // 6. Tarkista vastaus
     console.log("External API response status:", response.status);
-    console.log(
-      "Response Content-Type:",
-      response.headers.get("Content-Type")
-    );
+    console.log("Response Content-Type:", response.headers.get("Content-Type"));
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -56,9 +38,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // 7. Palauta data JSONina
     const data = await response.json();
-
     return NextResponse.json(data);
   } catch (error: any) {
     console.error("Unexpected error in /api/inventory-status route:", error);

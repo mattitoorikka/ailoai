@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "@auth0/nextjs-auth0/edge";
 
 export const runtime = "edge";
 
@@ -7,16 +6,8 @@ export async function GET(req: NextRequest) {
   try {
     console.log("Incoming request:", req.url);
 
-    const session = await getSession(req, NextResponse.next());
-    const token = session?.user?.["https://yourdomain.com/solmio_api_token"];
-
-    if (!token) {
-      console.log("Authorization token missing");
-      return NextResponse.json(
-        JSON.stringify({ error: "Authorization token missing" }),
-        { status: 401 }
-      );
-    }
+    // Kovakoodattu token
+    const token = "bNgMy8BbrqsTCIW09eeu6NFyWvIgAP";
 
     // Lue query-parametrit
     const { searchParams } = new URL(req.url);
@@ -26,9 +17,8 @@ export async function GET(req: NextRequest) {
     console.log("Query parameters:", { startDate, endDate });
 
     if (!startDate || !endDate) {
-      console.log("Start date and end date are required");
       return NextResponse.json(
-        JSON.stringify({ error: "Start date and end date are required" }),
+        { error: "Start date and end date are required" },
         { status: 400 }
       );
     }
@@ -48,18 +38,17 @@ export async function GET(req: NextRequest) {
     if (!response.ok) {
       console.error("Failed to fetch data. Status:", response.status);
       return NextResponse.json(
-        JSON.stringify({ error: "Failed to fetch data" }),
+        { error: "Failed to fetch data" },
         { status: response.status }
       );
     }
 
     const data = await response.json();
 
-    // Palauta data merkkijonona
-    return NextResponse.json(JSON.stringify(data)); // Tämä varmistaa oikean palautusmuodon
-  } catch (error) {
+    return NextResponse.json(data);
+  } catch (error: any) {
     console.error("Error:", error);
-    return NextResponse.json(JSON.stringify({ error: error.message }), {
+    return NextResponse.json({ error: error.message || "Internal error" }, {
       status: 500,
     });
   }

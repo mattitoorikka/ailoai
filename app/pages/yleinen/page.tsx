@@ -41,7 +41,7 @@ const YleinenPage = () => {
           const url = `/api/salesdata/?start_date=${encodeURIComponent(start_date)}&end_date=${encodeURIComponent(end_date)}&use_dynamic_group_connections=false`;
           const res = await fetch(url, { credentials: "include" });
           if (!res.ok) throw new Error(`Sales data error: ${res.statusText}`);
-          return await res.json();
+          return JSON.stringify(await res.json());
         }
   
         if (call.function.name === "fetch_inventory_status") {
