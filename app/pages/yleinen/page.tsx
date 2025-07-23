@@ -32,15 +32,53 @@ const YleinenPage = () => {
   };
 
   const functionCallHandler = async (call: RequiredActionFunctionToolCall) => {
-    try {
-      const args = JSON.parse(call.function.arguments || "{}");
-
-      return JSON.stringify({ error: `Unsupported function: ${call.function.name}` });
-    } catch (err) {
-      console.error("Function call error:", err);
-      return JSON.stringify({ error: (err as Error).message });
-    }
-  };
+      try {
+        const args = JSON.parse(call.function.arguments || "{}");
+  
+        if (call.function.name === "get_sales_data") {
+          const { start_date, end_date } = args;
+          if (!start_date || !end_date) throw new Error("Start and end dates required.");
+          const url = `/api/salesdata/?start_date=${encodeURIComponent(start_date)}&end_date=${encodeURIComponent(end_date)}&use_dynamic_group_connections=false`;
+          const res = await fetch(url, { credentials: "include" });
+          if (!res.ok) throw new Error(`Sales data error: ${res.statusText}`);
+          return await res.json();
+        }
+  
+        if (call.function.name === "fetch_inventory_status") {
+          const date = args.date || new Date().toISOString().split("T")[0] + "T06:00:00+02";
+          const res = await fetch(`/api/inventory-status?date=${encodeURIComponent(date)}`, { credentials: "include" });
+          if (!res.ok) throw new Error(`Inventory error: ${res.statusText}`);
+          return JSON.stringify(await res.json());
+        }
+  
+        if (call.function.name === "fetch_historical_weather_data") {
+          const { city, date } = args;
+          if (!city || !date) throw new Error("City and Date required.");
+          const res = await fetch(`/api/weather-data?city=${encodeURIComponent(city)}&date=${encodeURIComponent(date)}`, { credentials: "include" });
+          if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(`Weather error: ${errorData.error}`);
+          }
+          return JSON.stringify(await res.json());
+        }
+  
+        if (call.function.name === "get_recipes") {
+          const query = args.query || "lohi";
+          const number = args.number || 3;
+          const res = await fetch(`/api/spoonacular-recipes?query=${encodeURIComponent(query)}&number=${number}`, {
+            credentials: "include",
+          });
+          if (!res.ok) throw new Error(`Recipe fetch error: ${res.statusText}`);
+          return JSON.stringify(await res.json());
+        }
+        
+        return JSON.stringify({ error: `Unsupported function: ${call.function.name}` });
+      } catch (err) {
+        console.error("Function call error:", err);
+        return JSON.stringify({ error: (err as Error).message });
+      }
+    };
+  
 
   return (
     <main className={styles.main}>
