@@ -1,15 +1,15 @@
 import { useAssistantId } from "@/app/hooks/useAssistantId";
 
-/** React-hook, joka palauttaa ai-fetch-funktion */
+/** React-hook, joka palauttaa ai-fetch-funktion tai null kunnes valmis */
 export function useAiFetch(topic?: string) {
-  const assistantId = useAssistantId(topic); // ✅ käytä parametria
+  const assistantId = useAssistantId(topic);
+
+  if (!assistantId) return null; // estää ennenaikaisen käytön
 
   return async function aiFetch(
     url: string,
     init: RequestInit & { body?: FormData | Record<string, any> } = {}
   ) {
-    if (!assistantId) throw new Error("assistantId puuttuu!");
-
     let body: BodyInit | undefined;
 
     if (init.body instanceof FormData) {

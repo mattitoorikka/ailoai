@@ -147,6 +147,14 @@ const ValikoimaPage = () => {
                   <Link href="/" className={styles.actionButton}>
                     🔙 Etusivulle
                   </Link>
+                  <button
+                    className={styles.actionButton}
+                    onClick={() => {
+                      window.location.href = '/api/auth/logout';
+                    }}
+                  >
+                    🔒 Logout
+                  </button>
                 </div>
 
                 <div className={styles.fileToggleWrapper}>

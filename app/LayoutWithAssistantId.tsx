@@ -1,14 +1,19 @@
 "use client";
 
-import { getStaticAssistantId } from "@/app/hooks/useAssistantId";
+import { useUser } from "@auth0/nextjs-auth0/client";
 import Warnings from "./components/warnings";
+import { useAssistantId } from "@/app/hooks/useAssistantId"; 
 
-export default function LayoutWithAssistantId({
-  children,
-}: {
+type Props = {
   children: React.ReactNode;
-}) {
-  const assistantId = getStaticAssistantId();
+  topic?: string; 
+};
+
+export default function LayoutWithAssistantId({ children, topic }: Props) {
+  const { user, isLoading } = useUser();
+  const assistantId = useAssistantId(topic); 
+
+  if (isLoading) return null; 
 
   return (
     <>
