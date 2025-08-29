@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     // Kovakoodattu token
     const token = "bNgMy8BbrqsTCIW09eeu6NFyWvIgAP";
 
-    // Lue query-parametrit
+
     const { searchParams } = new URL(req.url);
     const startDate = searchParams.get("start_date");
     const endDate = searchParams.get("end_date");
