@@ -1,9 +1,10 @@
+/* ===== Layout ===== */
 .main {
   display: flex;
   justify-content: center;
   align-items: stretch;
   height: 100vh;
-  background-color: white;
+  background: var(--bg);
 }
 
 .container {
@@ -22,7 +23,7 @@
 }
 
 .chatContainer {
-  flex-grow: 1; 
+  flex: 1;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -33,35 +34,35 @@
 }
 
 .chat {
-  max-width: 100%;
   width: 100%;
   height: 100%;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: clamp(6px, 1.5vw, 10px);
-  background-color: #ffffff;
+  background: var(--bg);
   font-size: clamp(0.9rem, 1vw, 1.1rem);
 }
 
 .chatDisclaimer {
-  margin-top: auto; /* Työntää disclaimin alas */
+  margin-top: auto;
   font-size: 0.65rem;
-  color: #555;
+  color: var(--muted);
   text-align: center;
   padding: 8px 16px;
 }
 
+/* ===== Left instructions panel ===== */
 .instructions {
   flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   padding: clamp(2px, 1vw, 4px);
-  background-color: #f9f9f9;
-  border: 2px solid #3b4544;
+  background: var(--panel);
+  border: 2px solid var(--ink-2);
   border-radius: 16px;
-  font-size: clamp(0.5rem, 1vw, 0.9rem);
+  font-size: clamp(0.6rem, 1vw, 0.8rem);
   display: flex;
   flex-direction: column;
-  min-height: 0;
 }
 
 .instructions ul {
@@ -71,14 +72,14 @@
 
 .instructions ul li {
   display: flex;
+  gap: 10px;
   align-items: flex-start;
   margin-bottom: 10px;
-  gap: 10px;
 }
 
 .instructions ul li span {
-  font-size: clamp(0.9rem, 1.0vw, 1.0rem);
-  color: #3b4544;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  color: var(--ink-2);
 }
 
 .instructions ul li div {
@@ -96,28 +97,16 @@
   font-size: clamp(0.6rem, 1vw, 0.8rem);
   margin: 2px;
   line-height: 1.2;
-  color: #283332;
+  color: var(--ink);
 }
 
-.instructions {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  padding: clamp(2px, 1vw, 4px);
-  background-color: #f9f9f9;
-  border: 2px solid #3b4544;
-  border-radius: 16px;
-  font-size: clamp(0.6rem, 1vw, 0.8rem);
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-
+/* ===== Optional file viewer box ===== */
 .fileViewer {
   flex: 1;
   overflow-y: auto;
   padding: clamp(8px, 1vw, 12px);
-  background-color: #f9f9f9;
-  border: 2px solid #3b4544;
+  background: var(--panel);
+  border: 2px solid var(--ink-2);
   border-radius: 16px;
 }
 
@@ -132,136 +121,220 @@
 .fileToggleWrapper {
   display: flex;
   justify-content: center;
-  
 }
 
 .fileToggleButton {
+  width: 100%;
+  max-width: 300px;
   padding: 10px 16px;
   font-size: 0.9rem;
   border-radius: 8px;
   border: none;
-  background-color: #f9f9f9;
-  color: #333;
+  background: var(--panel);
+  color: var(--ink);
   cursor: pointer;
-  width: 100%;
-  max-width: 300px;
 }
 
 .fileToggleButton:hover {
-  background-color: #283332;
-  color: white;
+  background: var(--ink);
+  color: var(--bg);
 }
 
+/* ===== Conversations ===== */
+.historyTitle {
+  font-size: clamp(0.7rem, 1vw, 1.1rem);
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 0.45rem 0.3rem;
+}
+
+.history {
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #8d9493 transparent;
+}
+
+.history::-webkit-scrollbar {
+  width: 6px;
+}
+
+.history::-webkit-scrollbar-thumb {
+  background: #8d9493;
+  border-radius: 4px;
+}
+
+.history::-webkit-scrollbar-thumb:hover {
+  background: #a6a6a6;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.3rem;
+}
+
+.historyItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 4px;
+  font-size: clamp(0.6rem, 1vw, 0.8rem);
+  line-height: 1.2;
+  border-radius: 4px;
+  color: var(--ink);
+  transition: background .15s ease;
+}
+
+.historyItem:hover {
+  background: color-mix(in oklab, var(--ink) 8%, transparent);
+}
+
+.historyItemActive {
+  background: var(--brand);
+  color: #fff;
+}
+
+.historyLink {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.historyTitleText {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.historyItem :is(.historyDate, .deleteButton) {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s ease;
+}
+
+.historyItem:hover :is(.historyDate, .deleteButton) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.historyDate {
+  margin-left: auto;
+  font-size: 0.6rem;
+  color: var(--muted);
+}
+
+.deleteButton {
+  margin-left: 4px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  color: var(--ink);
+}
+
+/* ===== Mobile fullscreen ===== */
 @media (max-width: 768px) {
   .column {
-    display: none; /* Piilota vasen sarake mobiilissa */
+    display: none;
   }
 
-  .fullScreenPanel {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #f9f9f9;
-    z-index: 1000;
-    overflow-y: auto;
-  }
-
+  .fullScreenPanel,
   .fullScreenChat {
-    display: flex;
-    flex-direction: column;
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--panel);
     z-index: 1000;
-    background-color: white;
     overflow-y: auto;
+  }
+
+  .fullScreenChat {
+    background: var(--bg);
+  }
+
+  .history {
+    max-height: 200px;
   }
 }
 
-.openPanelButton {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 1000;
-  padding: 10px;
-  background-color: #f9f9f9;
-  color: #283332;
-  border: none;
-  border-radius: 50%; /* Tee painikkeesta ympyrä */
-  font-size: 1.2em; /* Tee ikonista suurempi */
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Kevyt varjo painikkeelle */
-}
-
-.openPanelButton:hover {
-  background-color: #283332;
-  color: #fff;
-}
-
-
+/* ===== Panel toggle buttons ===== */
+.openPanelButton,
 .closePanelButton {
   position: fixed;
-  top: 20px;
-  left: 40px;
   z-index: 1000;
   padding: 10px;
-  transform: translateX(-50%);
-  z-index: 1001;
-  padding: 10px;
-  background-color: #f9f9f9;
-  color: white;
   border: none;
-  border-radius: 50%; /* Tee painikkeesta ympyrä */
-  font-size: 16px;
+  border-radius: 50%;
   cursor: pointer;
+  background: var(--panel);
+  color: var(--ink);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
 }
 
+.openPanelButton {
+  top: 10px;
+  left: 10px;
+}
+
+.closePanelButton {
+  top: 20px;
+  left: 40px;
+  transform: translateX(-50%);
+}
+
+.openPanelButton:hover,
 .closePanelButton:hover {
-  background-color: #283332;
+  background: var(--ink);
+  color: var(--bg);
 }
 
+/* ===== Header, logo & actions ===== */
 .logoContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 0px; /* Siirtää logon alas */
-  padding-top: 0px; /* Lisätty pieni väli logon yläpuolelle */
-  padding-bottom: 0px;
   padding-bottom: 50px;
 }
 
 .logo {
-  max-width: 180px; /* Logon maksimileveys */
-  max-height: 120px; /* Rajoita korkeutta */
-  height: auto; /* Säilyttää mittasuhteet */
-  object-fit: contain; /* Estää kuvan vääristymisen */
+  max-width: 180px;
+  max-height: 120px;
+  height: auto;
+  object-fit: contain;
 }
 
 .headerContent {
-  text-align: center; /* Keskittää tekstin */
-  margin-bottom: 10px; /* Lisää hieman väliä muihin elementteihin */
+  text-align: center;
+  margin-bottom: 10px;
   padding-top: 5px;
 }
 
 .headerContent h2 {
-  font-size: 1.6rem; /* Asettaa otsikon fonttikoon */
-  font-weight: bold; /* Korostaa otsikkoa */
-  margin: 0; /* Poistaa oletusmarginaalin */
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0;
 }
 
 .headerContent p {
-  font-size: 1.2rem; /* Asettaa kappaleen fonttikoon */
-  margin: 5px 0;
-  margin-bottom: 30px; 
+  font-size: 1.2rem;
+  margin: 5px 0 30px;
 }
 
 .buttonRow {
@@ -275,19 +348,19 @@
 
 .actionButton {
   font-size: 0.8rem;
-  font-weight: bold;
+  font-weight: 700;
   padding: 6px 12px;
   border-radius: 6px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  color: #000;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--ink);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all .2s ease;
   white-space: nowrap;
 }
 
 .actionButton:hover {
-  background-color: #ff5733;
+  background: var(--brand);
   color: #fff;
-  border-color: #ff5733;
+  border-color: var(--brand);
 }
